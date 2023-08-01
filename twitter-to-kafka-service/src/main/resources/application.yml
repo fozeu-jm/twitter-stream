@@ -23,3 +23,14 @@ kafka-config:
     - twitter-topic
   num-of-partitions: 3
   replication-factor: 3
+
+kafka-producer-config:
+  key-serializer-class: org.apache.kafka.common.serialization.LongSerializer
+  value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
+  compression-type: snappy #arranges compression ratio for higher compress/decompress speed
+  acks: all # to get acknowledgement from all replicas to be more resilient | if set to 1 : wait only current broker's ack | 0: no ack
+  batch-size: 16384 #
+  batch-size-boost-factor: 100
+  linger-ms: 5
+  request-timeout-ms: 60000
+  retry-count: 5
