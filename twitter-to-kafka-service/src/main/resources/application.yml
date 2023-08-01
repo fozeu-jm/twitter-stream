@@ -17,6 +17,7 @@ retry-config:
   sleep-time-ms: 2000
 kafka-config:
   bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
+  schema-registry-url-key: schema.registry.url
   schema-registry-url: http://localhost:8081
   topic-name: twitter-topic
   topic-names-to-create:
@@ -29,8 +30,8 @@ kafka-producer-config:
   value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
   compression-type: snappy #arranges compression ratio for higher compress/decompress speed
   acks: all # to get acknowledgement from all replicas to be more resilient | if set to 1 : wait only current broker's ack | 0: no ack
-  batch-size: 16384 #
-  batch-size-boost-factor: 100
+  batch-size: 16384 # set to the default config batch size. Size of batch data before being sent to kafka
+  batch-size-boost-factor: 100 # multiply default batch size by 100
   linger-ms: 5
   request-timeout-ms: 60000
   retry-count: 5

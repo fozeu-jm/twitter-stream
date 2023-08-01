@@ -16,6 +16,8 @@ public class KafkaConfigData {
     private Integer numOfPartitions;
     private Short replicationFactor;
     private String SchemaRegistryUrl;
+    private String SchemaRegistryUrlKey;
+
 
     public String getBootstrapServers() {
         return bootstrapServers;
@@ -71,5 +73,13 @@ public class KafkaConfigData {
 
     public void setSchemaRegistryUrl(String schemaRegistryUrl) {
         SchemaRegistryUrl = schemaRegistryUrl;
+    }
+
+    public String getSchemaRegistryUrlKey() {
+        return SchemaRegistryUrlKey;
+    }
+
+    public void setSchemaRegistryUrlKey(String schemaRegistryUrlKey) {
+        SchemaRegistryUrlKey = schemaRegistryUrlKey;
     }
 }
