@@ -62,6 +62,23 @@ public class KafkaAdminClient {
         return adminClient.createTopics(kafkaTopics);
     }
 
+    public void checkTopicsCreated() {
+        Collection<TopicListing> topics = getTopics();
+        int retryCount = 1;
+        Integer maxRetry = retryConfigData.getMaxAttempts();
+        int multiplier = retryConfigData.getMultiplier().intValue();
+        Long sleepTimeMs = retryConfigData.getSleepTimeMs();
+        for (String topic : kafkaConfigData.getTopicNamesToCreate()) {
+            while (!isTopicCreated(topics, topic)) {
+                checkMaxRetry(retryCount++, maxRetry);
+                this.sleep(sleepTimeMs);
+                sleepTimeMs *= multiplier;
+                topics = getTopics();
+            }
+        }
+
+    }
+
     private Collection<TopicListing> getTopics() {
         Collection<TopicListing> topics;
         try {
@@ -79,24 +96,6 @@ public class KafkaAdminClient {
             topics.forEach(topic -> LOG.debug("Topic with name {}", topic.name()));
         }
         return topics;
-    }
-
-
-    public void checkTopicsCreated() {
-        Collection<TopicListing> topics = getTopics();
-        int retryCount = 1;
-        Integer maxRetry = retryConfigData.getMaxAttempts();
-        int multiplier = retryConfigData.getMultiplier().intValue();
-        Long sleepTimeMs = retryConfigData.getSleepTimeMs();
-        for (String topic : kafkaConfigData.getTopicNamesToCreate()) {
-            while (!isTopicCreated(topics, topic)) {
-                checkMaxRetry(retryCount++, maxRetry);
-                this.sleep(sleepTimeMs);
-                sleepTimeMs *= multiplier;
-                topics = getTopics();
-            }
-        }
-
     }
 
     public void checkSchemaRegistry() {
