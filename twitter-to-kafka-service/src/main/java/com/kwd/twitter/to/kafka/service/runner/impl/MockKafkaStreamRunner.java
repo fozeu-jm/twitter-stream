@@ -1,7 +1,7 @@
 package com.kwd.twitter.to.kafka.service.runner.impl;
 
-import com.kwd.twitter.to.kafka.service.config.TwitterToKafkaServiceConfigData;
-import com.kwd.twitter.to.kafka.service.exception.TwitterTokafkaServiceException;
+import com.kwd.config.TwitterToKafkaServiceConfigData;
+import com.kwd.twitter.to.kafka.service.exception.TwitterToKafkaServiceException;
 import com.kwd.twitter.to.kafka.service.listener.TwitterKafkaStatusListener;
 import com.kwd.twitter.to.kafka.service.runner.StreamRunner;
 import org.slf4j.Logger;
@@ -99,15 +99,13 @@ public class MockKafkaStreamRunner implements StreamRunner {
 
     }
 
-
     private void sleep(long sleepTimeMs) {
         try {
             Thread.sleep(sleepTimeMs);
         } catch (InterruptedException e) {
-            throw new TwitterTokafkaServiceException("Error while sleeping for waiting new status to create !!");
+            throw new TwitterToKafkaServiceException("Error while sleeping for waiting new status to create !!");
         }
     }
-
 
     private String getRandomTweetContent(String[] keywords, int minTweetLength, int maxTweetLength) {
         StringBuilder tweet = new StringBuilder();

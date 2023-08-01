@@ -4,6 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>twitter-to-kafka-service</module>
+        <module>app-config-data</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -13,7 +14,7 @@
     </parent>
     <groupId>com.kwd</groupId>
     <artifactId>twitter-stream</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${project.version}</version>
     <name>twitter-stream</name>
     <description>twitter-stream</description>
     <packaging>pom</packaging>
